@@ -9,9 +9,8 @@ class Graph(object):
     A simple rooted-Graph implementation.
     '''
 
-    def __init__(self, root):
-        self.root = root
-        self.nodes = set([root])
+    def __init__(self, data, operators = ()):
+        self.root = Node(data, None, operators)
         
     '''
     op_path returns an order list of nodes of the shortest path from 
@@ -47,8 +46,8 @@ class Node(object):
     def succ(self):
         successors = set([])
         for op in self.operators:
-            successors = successors.union(op(self))
-        return successors
+            successors.update(op(self))
+        return list(successors)
     
       
     def __repr__(self):
