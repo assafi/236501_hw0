@@ -1,7 +1,8 @@
 '''
 Created on 2012-11-04
 
-@author: assafi
+@author: Assaf Israel
+email: assafi@cs.technion.ac.il
 '''
 import unittest
 from graph import *
