@@ -114,7 +114,7 @@ class Test(unittest.TestCase):
     def test_twoStepsHCube(self):
         cube = HungarianCube()
         print "original"
-        node = Node(cube,None,[])
+        node = Node(cube)
         print node.data
         print "*****"
         node = rotateFrontLeft(node)[0]
@@ -132,7 +132,30 @@ class Test(unittest.TestCase):
         print path[1].data
         print "-----"
         print path[2].data
+        print "-=-=-=-=-=-"
 
+    def test_stressTest(self):
+        print "Stress Test"
+        cube = HungarianCube()
+        node = Node(cube)
+        node = rotateRightRight(node)[0]
+        node = rotateTopRight(node)[0]
+        node = rotateBackRight(node)[0]
+        node = rotateLeftRight(node)[0]
+#        node = rotateBackRight(node)[0]
+#        node = rotateRightLeft(node)[0]
+#        node = rotateBottomRight(node)[0]
+#        node = rotateTopLeft(node)[0]
+#        node = rotateFrontRight(node)[0]
+#        node = rotateFrontRight(node)[0]
+        g = Graph(node.data,hungrarianCubeOperators())
+        path = bfs(g,hungarianCubePredicate)
+        
+        for x in path:
+            print x.data
+            print "------"
+        print "*&*&*&*&*&*&"
+        
 if __name__ == "__main__":
 #    import sys;sys.argv = ['', 'Test.testHungrarianCube']
     unittest.main()

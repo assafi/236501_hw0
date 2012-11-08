@@ -55,7 +55,7 @@ class Node(object):
         return "<Node data:%s operators:%s parent:%s>" % (self.data, self.operators, self.parent)
     
     def __str__(self):
-        return self.data
+        return str(self.data)
     
     
 
