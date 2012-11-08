@@ -9,10 +9,8 @@ from toss import generateTosses,generateTossesStatistics
 class Test(unittest.TestCase):
 
     def testgenerateTossesStatistics(self):
-        minimum = 0.8
-        maximum = 0.9
         N = 10
-        tosses = generateTossesStatistics(minimum,maximum,N)
+        tosses = generateTossesStatistics(N,0.8)
         for x in tosses:
             print x
         '''
@@ -21,10 +19,8 @@ class Test(unittest.TestCase):
         '''  
 
     def testTosses(self):
-        minimum = 0.8
-        maximum = 0.9
         N = 10
-        tosses = generateTosses(minimum,maximum,N)
+        tosses = generateTosses(N,0.85)
         for x in tosses:
             print x
             '''

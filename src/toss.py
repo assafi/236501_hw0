@@ -7,20 +7,21 @@ import random
 
 def printGraph():
     print ""
-
-def generateTossesStatistics(minimum,maximum,maxN):
+def avg(l):
+    return (float(sum(l)))/(len(l))
+def generateTossesStatistics(maxN, p):
     stats = []
-    for i in range (1,maxN+1):
-        tosses = generateTosses(minimum,maximum, i)
-        tails = sum(tosses)
-        heads = i - sum(tosses)
+    tosses = generateTosses(maxN,p)
+    for i in xrange (1,maxN+1):
+        tails = avg(tosses[:i+1])
+        heads = 1 - tails
         stats.append((i,heads,tails))
     return stats
     
-def generateTosses(minimum,maximum,N):
-    p = random.uniform(minimum,maximum)
+def generateTosses(N,p):
+    #p = random.uniform(minimum,maximum)
     tosses = list()
-    for i in range(1,N+1):
+    for i in xrange(1,N+1):
         tosses.append(toss(p))
     return tosses
 
