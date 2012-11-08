@@ -27,18 +27,20 @@ class Test(unittest.TestCase):
         g = Graph('a',[op1])
         b = g.root.succ().pop()
         path = g.op_path(b)
+        self.assertFalse(path is None)
         self.assertEqual(map(lambda x: x.data, path), ['a','b'])
     
     def test_bfs(self):
         g = Graph('a',[op2])
         path = bfs(g,goal_predicate1)
+        self.assertFalse(path is None)
         self.assertTrue(['a', 'c', 'd'] == map(lambda x: x.data, path) or \
                         ['a', 'b', 'd'] == map(lambda x: x.data, path))
 
     def test_dfs(self):
         g = Graph('a',[op2])
         path = dfs(g,goal_predicate1)
-            
+        self.assertFalse(path is None)            
         self.assertTrue(['a', 'b' ,'c', 'd'] == map(lambda x: x.data, path) or \
                         ['a', 'b', 'd'] == map(lambda x: x.data, path) or \
                         ['a', 'c', 'd'] == map(lambda x: x.data, path))
