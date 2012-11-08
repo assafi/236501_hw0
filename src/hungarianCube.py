@@ -3,9 +3,7 @@ Created on 2012-11-08
 
 @author: assafi
 '''
-import unittest
-from graph import *
-from bfs import *
+from graph import Node
 import copy
 
 class HungarianCube(object):
@@ -59,14 +57,20 @@ class HungarianCube(object):
 
 def rotateSideRight(side):
     newSideOrder = [6,3,0,7,4,1,8,5,2]
-    side = [side[:][i] for i in newSideOrder ]
+    sideClone = copy.copy(side)
+    for i in xrange(0,9,1):
+        side[i] = sideClone[newSideOrder[i]]
 
 def rotateSideLeft(side):
     newSideOrder = [2,5,8,1,4,7,0,3,6]
-    side = [side[i] for i in newSideOrder ]
+    sideClone = copy.copy(side)
+    for i in xrange(0,9,1):
+        side[i] = sideClone[newSideOrder[i]]
 
 def flipSide(side):
-    side = side[::-1]
+    reverse = side[::-1]
+    for i in xrange(0,9,1):
+        side[i] = reverse[i]
     
 def rotateCubeSideRight(side,leftSide,rightSide,upperSide,lowerSide):
     rotateSideRight(side)
@@ -149,23 +153,23 @@ def rotateBottomLeft(node):
 def rotateLeftRight(node):
     cube = copy.deepcopy(node.data)
     flipSide(cube.back)
+    rotateSideRight(cube.bottom)
     rotateSideLeft(cube.top)
-    rotateSideRight(cube.front)
     rotateCubeSideRight(cube.left,cube.back,cube.front,cube.top,cube.bottom)
     flipSide(cube.back)
+    rotateSideLeft(cube.bottom)
     rotateSideRight(cube.top)
-    rotateSideLeft(cube.front)
     return [Node(cube,node,hungrarianCubeOperators())]
 
 def rotateLeftLeft(node):
     cube = copy.deepcopy(node.data)
     flipSide(cube.back)
+    rotateSideRight(cube.bottom)
     rotateSideLeft(cube.top)
-    rotateSideRight(cube.front)
     rotateCubeSideLeft(cube.left,cube.back,cube.front,cube.top,cube.bottom)
     flipSide(cube.back)
+    rotateSideLeft(cube.bottom)
     rotateSideRight(cube.top)
-    rotateSideLeft(cube.front)
     return [Node(cube,node,hungrarianCubeOperators())]
     
 def rotateBackRight(node):
@@ -214,53 +218,3 @@ def hungrarianCubeOperators():
             rotateRightLeft,rotateBottomRight,rotateBottomLeft,\
             rotateLeftRight,rotateLeftLeft,rotateBackRight,\
             rotateBackLeft,rotateFrontRight,rotateFrontLeft]
-
-class Test(unittest.TestCase):
-
-    def test_rotateSideRight(self):
-        side = [1,2,3,4,5,6,7,8,9]
-        rotateSideRight(side)
-        self.assertEqual([7,4,1,8,5,2,9,6,3], side)
-        
-    def test_simpleHungarianCube(self):
-        cube = HungarianCube()
-        g = Graph(cube,hungrarianCubeOperators())
-        path = bfs(g,hungarianCubePredicate)
-        self.assertEquals(map(lambda x: x.data, path),[cube])
-        
-    def test_oneStepHCube(self):
-        cube = HungarianCube()
-        node = Node(cube,None,[])
-        cube2 = rotateFrontLeft(node)[0].data
-        g = Graph(cube2,hungrarianCubeOperators())
-        path = bfs(g,hungarianCubePredicate)
-        self.assertEquals(len(path),2)
-        print path[0].data
-        print "-----"
-        print path[1].data
-        
-    def test_twoStepsHCube(self):
-        cube = HungarianCube()
-        print "original"
-        node = Node(cube,None,[])
-        print node.data
-        print "*****"
-        node = rotateFrontLeft(node)[0]
-        print node.data
-        print "*****"
-        cube2 = rotateRightRight(node)[0].data
-        print cube2
-        print "*****"
-        g = Graph(cube2,hungrarianCubeOperators())
-        path = bfs(g,hungarianCubePredicate)
-        self.assertEquals(len(path),3)
-        print "Solution"
-        print path[0].data
-        print "-----"
-        print path[1].data
-        print "-----"
-        print path[2].data
-
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testHungrarianCube']
-    unittest.main()
