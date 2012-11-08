@@ -7,6 +7,8 @@ email: assafi@cs.technion.ac.il
 import unittest
 from graph import *
 from bfs import *
+from dfs import idDfs
+from dfs import dfs
 
 def op1(node):
     return [Node(chr(ord(node.data) + 1),node,[op1])]
@@ -32,6 +34,23 @@ class Test(unittest.TestCase):
         path = bfs(g,goal_predicate1)
         self.assertTrue(['a', 'c', 'd'] == map(lambda x: x.data, path) or \
                         ['a', 'b', 'd'] == map(lambda x: x.data, path))
+
+    def test_dfs(self):
+        g = Graph('a',[op2])
+        path = dfs(g,goal_predicate1)
+            
+        self.assertTrue(['a', 'b' ,'c', 'd'] == map(lambda x: x.data, path) or \
+                        ['a', 'b', 'd'] == map(lambda x: x.data, path) or \
+                        ['a', 'c', 'd'] == map(lambda x: x.data, path))
+    def test_idDfs(self):
+        g = Graph('a',[op2])
+        maxDepth = 3
+        path = idDfs(g,goal_predicate1,maxDepth)
+        self.assertFalse(path is None)
+        
+        self.assertTrue(['a', 'c', 'd'] == map(lambda x: x.data, path) or \
+                        ['a', 'b', 'd'] == map(lambda x: x.data, path))
+
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
