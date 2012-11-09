@@ -39,7 +39,7 @@ def limitedDfsRec(graph,isGoal,node,maxDepth, visited):
     return None#did not find
 
 def idDfs(graph,isGoal,maxDepth):
-    for i in range(1,maxDepth+1):
+    for i in xrange(1,maxDepth+1):
         solution = limitedDfs(graph,isGoal,i)
         if  solution != None:
             return solution

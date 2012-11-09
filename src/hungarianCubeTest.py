@@ -8,9 +8,36 @@ from graph import Graph
 from bfs import *
 from dfs import *
 from hungarianCube import *
+import time
 
 class Test(unittest.TestCase):
-
+    def __init__(self,argToSuper):
+        super(Test,self).__init__(argToSuper)
+        self.rotations = []
+        cube = HungarianCube()
+        node = Node(cube)
+        self.rotations+=[node]
+        node = rotateRightRight(node)[0]
+        self.rotations+=[node]
+        node = rotateTopRight(node)[0]
+        self.rotations+=[node]
+        node = rotateBackRight(node)[0]
+        self.rotations+=[node]
+        node = rotateLeftRight(node)[0]
+        self.rotations+=[node]
+        node = rotateBackRight(node)[0]
+        self.rotations+=[node]
+        node = rotateRightLeft(node)[0]
+        self.rotations+=[node]
+        node = rotateBottomRight(node)[0]
+        self.rotations+=[node]
+        node = rotateTopLeft(node)[0]
+        self.rotations+=[node]
+        node = rotateFrontRight(node)[0]
+        self.rotations+=[node]
+        node = rotateFrontRight(node)[0]
+        self.rotations+=[node]
+    '''
     def test_rotateSideRight(self):
         a = [1,2,3,4,5,6,7,8,9]
         rotateSideRight(a)
@@ -134,51 +161,80 @@ class Test(unittest.TestCase):
         print "-----"
         print path[2].data
         print "-=-=-=-=-=-"
-
     def test_stressTestBfs(self):
         print "Stress Test BFS"
-        cube = HungarianCube()
-        node = Node(cube)
-        node = rotateRightRight(node)[0]
-        node = rotateTopRight(node)[0]
-        node = rotateBackRight(node)[0]
-        node = rotateLeftRight(node)[0]
-#        node = rotateBackRight(node)[0]
-#        node = rotateRightLeft(node)[0]
-#        node = rotateBottomRight(node)[0]
-#        node = rotateTopLeft(node)[0]
-#        node = rotateFrontRight(node)[0]
-#        node = rotateFrontRight(node)[0]
+        node = self.rotations[4]
         g = Graph(node.data,hungrarianCubeOperators())
-        path = dfs(g,hungarianCubePredicate)
+        path = bfs(g,hungarianCubePredicate)
         
+        for x in path:
+            print x.data
+            print "------"
+        print "*&*&*&*&*&*&"
+
+    def test_stressTestIdDfs(self):
+        print "Stress Test ID-DFS"
+        node = self.rotations[6]
+        g = Graph(node.data,hungrarianCubeOperators())
+        path = idDfs(g,hungarianCubePredicate,6)
+        self.assertTrue(path is None)
         for x in path:
             print x.data
             print "------"
         print "*&*&*&*&*&*&"
     
-    def test_stressTestIdDfs(self):
+    def test_stressTestIdDfsFail(self):
         print "Stress Test ID-DFS"
-        cube = HungarianCube()
-        node = Node(cube)
-        node = rotateRightRight(node)[0]
-        node = rotateTopRight(node)[0]
-        node = rotateBackRight(node)[0]
-        node = rotateLeftRight(node)[0]
-#        node = rotateBackRight(node)[0]
-#        node = rotateRightLeft(node)[0]
-#        node = rotateBottomRight(node)[0]
-#        node = rotateTopLeft(node)[0]
-#        node = rotateFrontRight(node)[0]
-#        node = rotateFrontRight(node)[0]
+        node = self.rotations[6]
         g = Graph(node.data,hungrarianCubeOperators())
-        path = idDfs(g,hungarianCubePredicate,6)
+        path = idDfs(g,hungarianCubePredicate,4)
+        self.assertFalse(path is None)
+    '''
+    def stressTestBfsLevel(self,count):
+        print "Started BFS with " + str(count)
+        start = time.clock()
+        node = self.rotations[count]
+        g = Graph(node.data,hungrarianCubeOperators())
+        path = bfs(g,hungarianCubePredicate)
+        self.assertFalse(path is None)
+        elapsed = (time.clock() - start)
+        print "Done BFS with " + str(count)+ " levels " +"on " + str(elapsed) +" seconds"
+    
+    def stressTestIdDfsLevel(self,count):
+        print "Started ID-DFS with " + str(count)
+        start = time.clock()
+        node = self.rotations[count]
+        g = Graph(node.data,hungrarianCubeOperators())
+        path = idDfs(g,hungarianCubePredicate,count+1)
+        self.assertFalse(path is None)
+        elapsed = (time.clock() - start)
+        print "Done ID-Dfs with " + str(count)+ " levels " +"on " + str(elapsed) +" seconds"
+
+    def stressTestLimitedDfsLevel(self,count):
+        print "Started Limited-DFS with " + str(count)
+        start = time.clock()
+        node = self.rotations[count]
+        g = Graph(node.data,hungrarianCubeOperators())
+        path = limitedDfs(g,hungarianCubePredicate,count+1)
+        elapsed = (time.clock() - start)
+        if (path is None):
+            print "Failed Limited-Dfs with " + str(count)+ " levels " +"on " + str(elapsed) +" seconds"
+        else:
+            print "Done Limited-Dfs with " + str(count)+ " levels " +"on " + str(elapsed) +" seconds"
+
+    
+    def test_CompareDFS_BFS(self):
+        print "started master test"
+        DFS_LIMIT = 5 
+        BFS_LIMIT = 4 
+        for i in xrange(1,DFS_LIMIT+1):
+            self.stressTestLimitedDfsLevel(i)
+        for i in xrange(1,DFS_LIMIT+1):
+            self.stressTestIdDfsLevel(i)
+        for i in xrange(1,BFS_LIMIT+1):
+            self.stressTestBfsLevel(i)
+        print "done"
         
-        for x in path:
-            print x.data
-            print "------"
-        print "*&*&*&*&*&*&"
-         
 if __name__ == "__main__":
 #    import sys;sys.argv = ['', 'Test.testHungrarianCube']
     unittest.main()
