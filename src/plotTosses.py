@@ -22,7 +22,7 @@ def plotN(N,p1,p2):
     
     #plt.plot([1,2,3,4],[1,4,9,16],'ro')
     #plt.plot([1,2,3,4],[1,2,3,4],'ro',[1,2,3,4],[1,4,9,16],'bs')
-    plt.plot(tosses1X,tosses1Y,'ro-',tosses2X,tosses2Y,'bs--')
+    plt.plot(tosses1X,tosses1Y,'ro--',[0,N+1],[p1,p1],'ro-',tosses2X,tosses2Y,'bs--',[0,N+1],[p2,p2],'bs-')
     plt.axis([0, N+1, 0, 1])
     plt.ylabel('average heads probability for each coin')
     #plt.show()
@@ -48,3 +48,4 @@ if __name__ == '__main__':
     plotN(500,p1,p2)
     plotN(1000,p1,p2)
     plotN(10000,p1,p2)
+    plotN(20000,p1,p2)
