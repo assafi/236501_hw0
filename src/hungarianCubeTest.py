@@ -6,6 +6,7 @@ Created on 8/11/2012
 import unittest
 from graph import Graph
 from bfs import *
+from dfs import *
 from hungarianCube import *
 
 class Test(unittest.TestCase):
@@ -134,8 +135,8 @@ class Test(unittest.TestCase):
         print path[2].data
         print "-=-=-=-=-=-"
 
-    def test_stressTest(self):
-        print "Stress Test"
+    def test_stressTestBfs(self):
+        print "Stress Test BFS"
         cube = HungarianCube()
         node = Node(cube)
         node = rotateRightRight(node)[0]
@@ -149,13 +150,35 @@ class Test(unittest.TestCase):
 #        node = rotateFrontRight(node)[0]
 #        node = rotateFrontRight(node)[0]
         g = Graph(node.data,hungrarianCubeOperators())
-        path = bfs(g,hungarianCubePredicate)
+        path = dfs(g,hungarianCubePredicate)
         
         for x in path:
             print x.data
             print "------"
         print "*&*&*&*&*&*&"
+    
+    def test_stressTestIdDfs(self):
+        print "Stress Test ID-DFS"
+        cube = HungarianCube()
+        node = Node(cube)
+        node = rotateRightRight(node)[0]
+        node = rotateTopRight(node)[0]
+        node = rotateBackRight(node)[0]
+        node = rotateLeftRight(node)[0]
+#        node = rotateBackRight(node)[0]
+#        node = rotateRightLeft(node)[0]
+#        node = rotateBottomRight(node)[0]
+#        node = rotateTopLeft(node)[0]
+#        node = rotateFrontRight(node)[0]
+#        node = rotateFrontRight(node)[0]
+        g = Graph(node.data,hungrarianCubeOperators())
+        path = idDfs(g,hungarianCubePredicate,6)
         
+        for x in path:
+            print x.data
+            print "------"
+        print "*&*&*&*&*&*&"
+         
 if __name__ == "__main__":
 #    import sys;sys.argv = ['', 'Test.testHungrarianCube']
     unittest.main()

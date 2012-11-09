@@ -9,4 +9,7 @@ def isPalindrom(st):
         if start != finish:
             return False
     return True
+
+def isPalindrom2(st):
+    return st == st[::-1]
         
