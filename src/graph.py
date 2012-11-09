@@ -2,7 +2,7 @@
 Created on 2012-11-04
 
 @author: Assaf Israel, Gal Cohen
-email: assafi@cs.technion.ac.il
+email: assafi@cs.teh chnion.ac.il
 email: galtechnion@gmail.com
 '''
 

@@ -37,7 +37,7 @@ class Test(unittest.TestCase):
         self.rotations+=[node]
         node = rotateFrontRight(node)[0]
         self.rotations+=[node]
-    '''
+    
     def test_rotateSideRight(self):
         a = [1,2,3,4,5,6,7,8,9]
         rotateSideRight(a)
@@ -189,7 +189,7 @@ class Test(unittest.TestCase):
         g = Graph(node.data,hungrarianCubeOperators())
         path = idDfs(g,hungarianCubePredicate,4)
         self.assertFalse(path is None)
-    '''
+    
     def stressTestBfsLevel(self,count):
         print "Started BFS with " + str(count)
         start = time.clock()
@@ -225,7 +225,7 @@ class Test(unittest.TestCase):
     
     def test_CompareDFS_BFS(self):
         print "started master test"
-        DFS_LIMIT = 5 
+        DFS_LIMIT = 3
         BFS_LIMIT = 4 
         for i in xrange(1,DFS_LIMIT+1):
             self.stressTestLimitedDfsLevel(i)

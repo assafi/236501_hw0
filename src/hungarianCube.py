@@ -1,7 +1,7 @@
 '''
 Created on 2012-11-08
 
-@author: assafi
+@author: Assaf
 '''
 from graph import Node
 import copy
