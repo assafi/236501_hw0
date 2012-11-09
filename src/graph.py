@@ -1,8 +1,9 @@
 '''
 Created on 2012-11-04
 
-@author: Assaf Israel
+@author: Assaf Israel, Gal Cohen
 email: assafi@cs.technion.ac.il
+email: galtechnion@gmail.com
 '''
 
 class Graph(object):
