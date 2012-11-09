@@ -5,7 +5,7 @@ Created on 2012-11-08
 '''
 from toss import generateTossesStatistics
 import matplotlib.pyplot as plt
-import random
+#import random
 
 def plotN(N,p1,p2):
     tosses1 = generateTossesStatistics(N,p1)
@@ -34,12 +34,14 @@ def plotN(N,p1,p2):
             '''
     plt.savefig(s)
 if __name__ == '__main__':
+    '''
     minimum = 0.8
     maximum = 0.9
     p1 = random.uniform(minimum,maximum)
     p2 = random.uniform(minimum,maximum)
-    #p1 = 0.8
-    #p2 = 0.9
+    '''
+    p1 = 0.8
+    p2 = 0.9
     plotN(20,p1,p2)
     plotN(50,p1,p2)
     plotN(100,p1,p2)
